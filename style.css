@@ -1,0 +1,356 @@
+/* ==========================================================================
+   Ludo Master - Modern Board Game Stylesheet
+   ========================================================================== */
+
+:root {
+  --color-red: #ef4444;
+  --color-red-dark: #b91c1c;
+  --color-green: #10b981;
+  --color-green-dark: #047857;
+  --color-yellow: #f59e0b;
+  --color-yellow-dark: #b45309;
+  --color-blue: #3b82f6;
+  --color-blue-dark: #1d4ed8;
+  --board-bg: #0f172a;
+  --cell-bg: #ffffff;
+  --cell-border: #cbd5e1;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.6);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.4);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 163, 184, 0.7);
+}
+
+/* Board Container */
+.board-container {
+  width: min(92vw, 560px);
+  aspect-ratio: 1 / 1;
+  position: relative;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+/* 15x15 Board Grid */
+.ludo-board {
+  display: grid;
+  grid-template-columns: repeat(15, 1fr);
+  grid-template-rows: repeat(15, 1fr);
+  width: 100%;
+  height: 100%;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 0 3px rgba(255, 255, 255, 0.1);
+  background: #ffffff;
+  position: relative;
+}
+
+/* Cells */
+.board-cell {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--cell-border);
+  box-sizing: border-box;
+}
+
+/* Safe Zone Indicator */
+.safe-zone::after {
+  content: '★';
+  position: absolute;
+  font-size: clamp(10px, 2.5vw, 18px);
+  color: #fbbf24;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  pointer-events: none;
+  z-index: 2;
+  animation: starPulse 2.5s infinite ease-in-out;
+}
+
+@keyframes starPulse {
+  0%, 100% { transform: scale(1); opacity: 0.9; }
+  50% { transform: scale(1.15); opacity: 1; }
+}
+
+/* Star colors by team for start positions */
+.cell-red-start::after { color: #fee2e2; }
+.cell-green-start::after { color: #d1fae5; }
+.cell-yellow-start::after { color: #fef3c7; }
+.cell-blue-start::after { color: #dbeafe; }
+
+/* Yard styling */
+.yard {
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8%;
+  position: relative;
+}
+
+.yard-inner {
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.96);
+  border-radius: 12px;
+  box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.2);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  padding: 10%;
+  gap: 12%;
+}
+
+.yard-slot {
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.25);
+  position: relative;
+  transition: transform 0.2s ease;
+}
+
+.slot-red { background: rgba(239, 68, 68, 0.2); border: 2px dashed #ef4444; }
+.slot-green { background: rgba(16, 185, 129, 0.2); border: 2px dashed #10b981; }
+.slot-yellow { background: rgba(245, 158, 11, 0.2); border: 2px dashed #f59e0b; }
+.slot-blue { background: rgba(59, 130, 246, 0.2); border: 2px dashed #3b82f6; }
+
+/* Home Triangles */
+.center-home {
+  position: relative;
+  overflow: hidden;
+  background: #f8fafc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.triangle-red {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  clip-path: polygon(0 0, 50% 50%, 0 100%);
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+}
+
+.triangle-green {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  clip-path: polygon(0 0, 100% 0, 50% 50%);
+  background: linear-gradient(135deg, #10b981, #059669);
+}
+
+.triangle-yellow {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  clip-path: polygon(100% 0, 100% 100%, 50% 50%);
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+}
+
+.triangle-blue {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  clip-path: polygon(0 100%, 100% 100%, 50% 50%);
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+}
+
+.home-center-icon {
+  position: absolute;
+  z-index: 5;
+  width: 32%;
+  height: 32%;
+  background: #ffffff;
+  border-radius: 50%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(10px, 2.5vw, 18px);
+}
+
+/* Tokens */
+.token {
+  width: 78%;
+  height: 78%;
+  border-radius: 50%;
+  position: absolute;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -2px rgba(0, 0, 0, 0.3);
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease;
+  cursor: default;
+  border: 2px solid #ffffff;
+}
+
+.token::before {
+  content: '';
+  width: 45%;
+  height: 45%;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.token-red {
+  background: radial-gradient(circle at 35% 35%, #f87171, #dc2626 70%, #991b1b);
+}
+.token-green {
+  background: radial-gradient(circle at 35% 35%, #34d399, #059669 70%, #065f46);
+}
+.token-yellow {
+  background: radial-gradient(circle at 35% 35%, #fbbf24, #d97706 70%, #92400e);
+}
+.token-blue {
+  background: radial-gradient(circle at 35% 35%, #60a5fa, #2563eb 70%, #1e40af);
+}
+
+/* Movable Token State (Clickable & Glowing) */
+.token-movable {
+  cursor: pointer !important;
+  z-index: 25 !important;
+  animation: tokenPulse 1s infinite alternate cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.token-movable:hover {
+  transform: scale(1.22);
+}
+
+@keyframes tokenPulse {
+  0% {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.9), 0 0 15px rgba(255, 255, 255, 0.8);
+  }
+  100% {
+    transform: scale(1.18);
+    box-shadow: 0 0 0 6px rgba(255, 255, 255, 0), 0 0 25px rgba(255, 255, 255, 0.95);
+  }
+}
+
+/* Token Movement Step Animation */
+.token-hopping {
+  animation: tokenHop 0.22s ease-in-out;
+}
+
+@keyframes tokenHop {
+  0%, 100% { transform: scale(1) translateY(0); }
+  50% { transform: scale(1.3) translateY(-25%); }
+}
+
+/* Clustered tokens on same cell */
+.token-cluster-1 { transform: scale(0.68) translate(-28%, -28%); }
+.token-cluster-2 { transform: scale(0.68) translate(28%, -28%); }
+.token-cluster-3 { transform: scale(0.68) translate(-28%, 28%); }
+.token-cluster-4 { transform: scale(0.68) translate(28%, 28%); }
+
+/* 3D Dice Simulation */
+.dice-scene {
+  width: 72px;
+  height: 72px;
+  perspective: 400px;
+}
+
+.dice-cube {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+  cursor: pointer;
+}
+
+.dice-face {
+  position: absolute;
+  width: 72px;
+  height: 72px;
+  background: #ffffff;
+  border: 2px solid #e2e8f0;
+  border-radius: 14px;
+  display: grid;
+  padding: 10px;
+  box-sizing: border-box;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.08);
+}
+
+.dice-dot {
+  width: 13px;
+  height: 13px;
+  background: #1e293b;
+  border-radius: 50%;
+  align-self: center;
+  justify-self: center;
+  box-shadow: inset 0 2px 2px rgba(0,0,0,0.5);
+}
+
+/* Dice Face 3D Positioning */
+.face-1 { transform: rotateY(0deg) translateZ(36px); grid-template: 1fr / 1fr; }
+.face-2 { transform: rotateY(180deg) translateZ(36px); grid-template: 1fr 1fr / 1fr 1fr; }
+.face-3 { transform: rotateY(-90deg) translateZ(36px); grid-template: 1fr 1fr 1fr / 1fr 1fr 1fr; }
+.face-4 { transform: rotateY(90deg) translateZ(36px); grid-template: 1fr 1fr / 1fr 1fr; }
+.face-5 { transform: rotateX(-90deg) translateZ(36px); grid-template: 1fr 1fr 1fr / 1fr 1fr 1fr; }
+.face-6 { transform: rotateX(90deg) translateZ(36px); grid-template: 1fr 1fr 1fr / 1fr 1fr; }
+
+/* Face 2 dots */
+.face-2 .dice-dot:nth-child(1) { grid-area: 1 / 1; }
+.face-2 .dice-dot:nth-child(2) { grid-area: 2 / 2; }
+
+/* Face 3 dots */
+.face-3 .dice-dot:nth-child(1) { grid-area: 1 / 1; }
+.face-3 .dice-dot:nth-child(2) { grid-area: 2 / 2; }
+.face-3 .dice-dot:nth-child(3) { grid-area: 3 / 3; }
+
+/* Face 5 dots */
+.face-5 .dice-dot:nth-child(1) { grid-area: 1 / 1; }
+.face-5 .dice-dot:nth-child(2) { grid-area: 1 / 3; }
+.face-5 .dice-dot:nth-child(3) { grid-area: 2 / 2; }
+.face-5 .dice-dot:nth-child(4) { grid-area: 3 / 1; }
+.face-5 .dice-dot:nth-child(5) { grid-area: 3 / 3; }
+
+/* 3D Dice Rotations based on value */
+.dice-cube[data-face="1"] { transform: rotateX(0deg) rotateY(0deg); }
+.dice-cube[data-face="2"] { transform: rotateX(0deg) rotateY(-180deg); }
+.dice-cube[data-face="3"] { transform: rotateX(0deg) rotateY(90deg); }
+.dice-cube[data-face="4"] { transform: rotateX(0deg) rotateY(-90deg); }
+.dice-cube[data-face="5"] { transform: rotateX(90deg) rotateY(0deg); }
+.dice-cube[data-face="6"] { transform: rotateX(-90deg) rotateY(0deg); }
+
+/* Rolling Keyframes */
+.dice-rolling {
+  animation: diceRollAnimation 0.65s linear infinite;
+}
+
+@keyframes diceRollAnimation {
+  0% { transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg); }
+  25% { transform: rotateX(180deg) rotateY(90deg) rotateZ(45deg); }
+  50% { transform: rotateX(270deg) rotateY(270deg) rotateZ(180deg); }
+  75% { transform: rotateX(90deg) rotateY(360deg) rotateZ(270deg); }
+  100% { transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg); }
+}
+
+/* Confetti Canvas */
+#confettiCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 100;
+}
+
+/* Modals */
+.modal-overlay {
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(6px);
+}

@@ -1,0 +1,6 @@
+{
+  "name": "Ludo",
+  "description": "Production-ready Ludo board game featuring 2-4 players, smart AI bots, 3D dice physics, token capturing, synthesized audio, and state persistence.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
